@@ -1,3 +1,4 @@
+import { DbpediaServiceService } from './dbpedia-service.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'search-sparql-dbpedia';
+
+  constructor(private dbpediaService: DbpediaServiceService) {
+    this.dbpediaService.get();
+  }
 }
