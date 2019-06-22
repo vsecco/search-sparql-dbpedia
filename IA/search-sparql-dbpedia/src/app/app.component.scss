@@ -1,0 +1,32 @@
+.input-filter {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.serie-box {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+h5, h6 {
+    display: inline;
+}
+
+.break-line {
+    word-wrap: break-word;
+}
+
+.content {
+    padding: 10px;
+}
+
+span {
+    display: block;
+    text-align: justify;
+}
+
+hr {
+    border-top: 1px solid rgba(0,0,0,.2);
+}

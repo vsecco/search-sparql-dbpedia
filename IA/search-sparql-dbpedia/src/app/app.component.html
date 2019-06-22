@@ -1,31 +1,89 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<ngx-spinner
-  bdOpacity = 0.9
-  bdColor = "rgba(0,0,0,0)"
-  size = "medium"
-  color = "#94928a"
-  type = "pacman"
-  [fullScreen] = "false">
-  <p style="color: #94928a" > Carregando ... </p>
-</ngx-spinner>
-<div>
- <table>
-   <tr>
-     <th>Título</th>
-     <th>Comentário</th>
-     <th>Gênero</th>
-   </tr>
-   <tr *ngFor="let serie of series">
-     <td>
-        <a href={{serie.TitleLink}}>{{serie.Title}}</a>
-     </td>
-     <td>
-        {{serie.Abstract}}
-     </td>
-     <td>
-        <a href={{serie.Genre}}>{{serie.Genre}}</a>
-     </td>
-   </tr>
- </table>
+<div class="content">
+  <ngx-spinner
+    bdOpacity = 0.9
+    bdColor = "rgba(0,0,0,0)"
+    size = "medium"
+    color = "#94928a"
+    type = "pacman"
+    [fullScreen] = "false">
+    <p style="color: #94928a" > Carregando ... </p>
+  </ngx-spinner>
+  <div>
+    <h1>Projeto Filmes e Séries em Linked Data pelo DBPedia</h1>
+  </div>
+  <div class="row">
+    <div class="col-2">
+        <h5>Filtros:</h5>
+        <input class="input-filter" matInput [(ngModel)]="title" placeholder="Título:" (input)="valuechange($event.target.value, 'Title')">
+        <input class="input-filter" matInput [(ngModel)]="Genre" placeholder="Gênero:" (input)="valuechange($event.target.value, 'Genre')">
+        <input class="input-filter" matInput [(ngModel)]="Director" placeholder="Diretor:" (input)="valuechange($event.target.value, 'Director')">
+        <input class="input-filter" matInput [(ngModel)]="Starring" placeholder="Atores Principais:" (input)="valuechange($event.target.value, 'Starring')">
+        <input class="input-filter" matInput [(ngModel)]="Language" placeholder="Idioma Original:" (input)="valuechange($event.target.value, 'Language')">
+        <input class="input-filter" matInput [(ngModel)]="Country" placeholder="País de Origem:" (input)="valuechange($event.target.value, 'Country')">
+        <input class="input-filter" matInput [(ngModel)]="Producer" placeholder="Produtor:" (input)="valuechange($event.target.value, 'Producer')">
+        <input class="input-filter" matInput [(ngModel)]="ReleasedDate" placeholder="Ano de Lançamento:" (input)="valuechange($event.target.value, 'ReleasedDate')">
+    </div>
+    <div class="col-10">
+      <div *ngFor="let serie of series" class="serie-box">
+        <h5>Filme/Serie: </h5> <a href={{serie.TitleLink}}>{{serie.Title}}</a>
+        <hr>
+        <div class="row">
+          <div class="col-4 break-line">
+            <h6>Gênero: </h6> <a href={{serie.Genre}}>{{serie.Genre}}</a>
+            <br>
+            <h6>Diretor: </h6><a href={{serie.Director}}>{{serie.Director}}</a>
+            <br>
+            <h6>Atores Principais: </h6><a href={{serie.Starring}}>{{serie.Starring}}</a>
+            <br>
+            <h6>Idioma Original: </h6>{{serie.Language}}
+            <br>
+            <h6>País de Origem: </h6>{{serie.Country}}>{{serie.Country}}
+            <br>
+            <h6>Produtor: </h6><a href={{serie.Producer}}>{{serie.Producer}}</a>
+            <br>
+            <h6>Ano de Lançamento: </h6>{{serie.ReleaseDate}}
+            <br>
+          </div>
+          <div class="col-8">
+            <h6>Resumo: </h6><span>{{serie.Abstract}}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- <div>
+        <table>
+          <tr>
+            <th>Título</th>
+            <th>Comentário</th>
+            <th>Gênero</th>
+            <th>Diretor</th>
+            <th>Atores Principais</th>
+            <th>Idioma Original</th>
+            <th>País de Origem</th>
+            <th>Produtor</th>
+            <th>Ano de Lançamento</th>
+          </tr>
+          <tr *ngFor="let serie of series">
+            <td>
+                <a href={{serie.TitleLink}}>{{serie.Title}}</a>
+            </td>
+            <td>
+                {{serie.Abstract}}
+            </td>
+            <td>
+                <a href={{serie.Genre}}>{{serie.Genre}}</a>
+            </td>
+            <td>{{serie.Director}}</td>
+            <td>{{serie.Starring}}</td>
+            <td>{{serie.Language}}</td>
+            <td>{{serie.Country}}</td>
+            <td>{{serie.Producer}}</td>
+            <td>{{serie.ReleasedDate}}</td>
+          </tr>
+        </table>
+      </div> -->
+    </div>
+  </div>
+  <router-outlet></router-outlet>
 </div>
-<router-outlet></router-outlet>

@@ -22,13 +22,25 @@ export class DbpediaServiceService {
       const urlWithData = 'http://dbpedia.org/sparql';
       this.http.get<any>(urlWithData, { headers, params: {
         query:
-        `SELECT DISTINCT ?film_title ?film_abstract ?film_genre ?name
+        `#PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        #PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        #PREFIX dbo: <http://dbpedia.org/ontology/>
+        #PREFIX dbp: <http://dbpedia.org/property/>
+        #PREFIX foaf:  <http://xmlns.com/foaf/0.1/> .
+
+        SELECT distinct (SAMPLE(?movie) AS ?movie) ?film_title ?film_starring ?film_producer ?film_director ?film_language ?film_country ?film_abstract ?film_genre ?film_releaseDate
         WHERE {
-        ?film_title rdf:type dbo:Film .
-        ?film_title rdfs:comment ?film_abstract .
-        ?film_title dbo:genre ?film_genre .
-        ?film_title foaf:name ?name .
-        } LIMIT 500
+            ?movie rdf:type dbo:Film .
+            ?movie foaf:name ?film_title.
+            ?movie dbo:starring ?film_starring.
+            ?movie dbo:producer ?film_producer.
+            ?movie dbo:director ?film_director.
+            ?movie dbp:language ?film_language.
+            ?movie dbp:country ?film_country.
+            ?movie dbo:abstract ?film_abstract .
+            ?movie dbo:releaseDate ?film_releaseDate .
+            ?movie dbo:genre ?film_genre .
+        }LIMIT 500
         `,
         format: 'json'
       }, }).subscribe((serverResponse) => {
@@ -47,9 +59,15 @@ export class DbpediaServiceService {
     const serie: SerieModel = new SerieModel();
 
     serie.Abstract = serverResponse.film_abstract.value;
-    serie.TitleLink = serverResponse.film_title.value;
+    serie.Title = serverResponse.film_title.value;
     serie.Genre = serverResponse.film_genre.value;
-    serie.Title = serverResponse.name.value;
+    serie.Country = serverResponse.film_country.value;
+    serie.Director = serverResponse.film_director.value;
+    serie.Language = serverResponse.film_language.value;
+    serie.Producer = serverResponse.film_producer.value;
+    serie.ReleaseDate = serverResponse.film_releaseDate.value;
+    serie.Starring = serverResponse.film_starring.value;
+    serie.TitleLink = serverResponse.movie.value;
 
     return serie;
   }
