@@ -1,3 +1,4 @@
+import { LinkModel } from './link.model';
 import { Url } from 'url';
 
 export class SerieModel {
@@ -24,6 +25,14 @@ export class SerieModel {
     }
     public set Abstract(value: string) {
         this.abstract = value;
+    }
+
+    private genreLink: Url;
+    public get GenreLink(): Url {
+        return this.genreLink;
+    }
+    public set GenreLink(value: Url) {
+        this.genreLink = value;
     }
 
     private genre: Url;
@@ -57,26 +66,26 @@ export class SerieModel {
         this.language = value;
     }
 
-    private producer: string;
-    public get Producer(): string {
-        return this.producer;
+    private producers: LinkModel[] = [];
+    public get Producers() {
+        return this.producers;
     }
-    public set Producer(value: string) {
-        this.producer = value;
+    public set Producers(value: LinkModel[]) {
+        this.producers = value;
     }
-    private director: string;
-    public get Director(): string {
-        return this.director;
+    private directors: LinkModel[] = [];
+    public get Directors() {
+        return this.directors;
     }
-    public set Director(value: string) {
-        this.director = value;
+    public set Directors(value: LinkModel[]) {
+        this.directors = value;
     }
 
-    private starring: string;
-    public get Starring(): string {
-        return this.starring;
+    private starrings: LinkModel[] = [];
+    public get Starrings() {
+        return this.starrings;
     }
-    public set Starring(value: string) {
-        this.starring = value;
+    public set Starrings(value: LinkModel[]) {
+        this.starrings = value;
     }
 }

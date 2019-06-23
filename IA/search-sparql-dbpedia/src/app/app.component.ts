@@ -24,8 +24,16 @@ export class AppComponent {
   }
 
   public initialCallToDbPedia() {
+    this.title = '';
+    this.Genre = 'Situation comedy';
+    this.Director = '';
+    this.Starring = '';
+    this.Language = 'English';
+    this.Country = 'United States';
+    this.Producer = '';
+    this.ReleasedDate = '';
     setTimeout(() => this.spinner.show(), 25);
-    this.dbpediaService.get().then((series) => {
+    this.dbpediaService.get(this.title, this.Genre, this.Director, this.Language, this.Producer, this.ReleasedDate, this.Starring, this.Country).then((series) => {
       this.series = series;
       this.spinner.hide();
     }).catch(() => {
@@ -33,11 +41,38 @@ export class AppComponent {
     });
   }
 
-  public valuechange(e: string, subject: string) {
-    console.log(e);
+  public valuechange(value: string, subject: string) {
+    console.log(value);
     console.log(subject);
+    switch (subject) {
+    case 'Title':
+      this.title = value;
+      break;
+    case 'Genre':
+      this.Genre = value;
+      break;
+    case 'Director':
+      this.Director = value;
+      break;
+    case 'Language':
+      this.Language = value;
+      break;
+    case 'Producer':
+      this.Producer = value;
+      break;
+    case 'RelesedDate':
+      this.ReleasedDate = value;
+      break;
+    case 'Starring':
+      this.Starring = value;
+      break;
+    case 'Country':
+      this.Country = value;
+      break;
+    }
+
     this.spinner.show();
-    this.dbpediaService.get().then((series) => {
+    this.dbpediaService.get(this.title, this.Genre, this.Director, this.Language, this.Producer, this.ReleasedDate, this.Starring, this.Country).then((series) => {
       this.series = series;
       this.spinner.hide();
     }).catch(() => {
